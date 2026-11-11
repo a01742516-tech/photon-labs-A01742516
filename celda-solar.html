@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061b30">
+  <title>Simulador de celda solar · FotoV</title>
+  <link rel="stylesheet" href="solar.css">
+  <script src="solar.js" defer></script>
+</head>
+<body>
+  <header class="wrap top">
+    <a href="index.html"><img src="assets/fotov-emblema.png" width="44" height="44" alt="">FotoV</a>
+    <a href="index.html">← Volver a Photon Labs</a>
+  </header>
+  <main class="wrap">
+    <section class="intro">
+      <p class="tag">TE1020 · Práctica de campo · 11 nov 2026</p>
+      <h1>Simulador de <em>celda solar</em></h1>
+      <p>Reproduce el ensayo con el panel fotovoltaico y compara el voltaje observado en tres orientaciones.</p>
+    </section>
+    <section class="lab" aria-labelledby="orientation-title">
+      <div class="controls">
+        <h2 id="orientation-title">Orientación del panel</h2>
+        <div class="choices" role="group" aria-labelledby="orientation-title">
+          <button type="button" data-mode="down" aria-pressed="false">Boca abajo</button>
+          <button type="button" data-mode="up" aria-pressed="false">Boca arriba en el suelo</button>
+          <button type="button" data-mode="sun" aria-pressed="true">Perpendicular a los rayos</button>
+        </div>
+        <div class="scene" data-mode="sun" aria-hidden="true">
+          <div class="sun"></div><div class="rays"></div><div class="panel"></div><div class="ground"></div>
+        </div>
+        <div class="simulation-controls">
+          <label for="incidence">Giro respecto a la incidencia perpendicular</label>
+          <input id="incidence" type="range" min="-180" max="180" step="1" value="0">
+          <div class="simulation-status">
+            <output id="projection" for="incidence">0° · 100 % de luz directa</output>
+            <button type="button" id="play-solar">Animar giro</button>
+          </div>
+          <div class="simulated-meter" aria-label="Resultados simulados">
+            <div><span>Voltaje simulado</span><span id="sim-voltage">0.119 V</span></div>
+            <div><span>Corriente simulada</span><span id="sim-current">3.52 mA</span></div>
+          </div>
+          <p>El modelo usa 0.119 V y 3.52 mA como escalas independientes. La corriente es proporcional a la luz directa y el voltaje sigue una curva logarítmica ilustrativa. Las escalas vienen de fotos distintas.</p>
+          <p>Los ángulos de las tres posiciones son ilustrativos. Modelo geométrico ideal. La luz directa relativa se calcula con el coseno del ángulo y cae a cero cuando la cara activa queda de espaldas al Sol.</p>
+        </div>
+        <div class="meter">
+          <span>Lectura de referencia del ensayo seleccionado · magnitud</span>
+          <output id="voltage">0.085 V CC</output>
+          <p id="condition">Orientación ilustrativa. La inclinación exacta no se midió en las fotos.</p>
+        </div>
+      </div>
+      <figure>
+        <a id="photo-link" href="assets/solar/5.jpeg"><img id="photo" src="assets/solar/5.jpeg" alt="Panel sostenido en ángulo y multímetro durante el ensayo"></a>
+        <figcaption id="caption">Foto 5 · Lectura asociada provisionalmente a la prueba perpendicular.</figcaption>
+      </figure>
+    </section>
+    <section class="results">
+      <h2>Comparación de lecturas</h2>
+      <p>Se usa el valor absoluto del voltaje visible. Las barras comparten una escala de 0 a 0.100 V.</p>
+      <dl class="bars">
+        <div><dt>Boca abajo</dt><dd><meter min="0" max="0.1" value="0" aria-label="Boca abajo"></meter><b>0.000 V</b></dd></div>
+        <div><dt>Boca arriba en el suelo</dt><dd><meter min="0" max="0.1" value="0.085" aria-label="Boca arriba en el suelo"></meter><b>0.085 V</b></dd></div>
+        <div><dt>Perpendicular a los rayos*</dt><dd><meter min="0" max="0.1" value="0.085" aria-label="Perpendicular a los rayos, asociación provisional"></meter><b>0.085 V</b></dd></div>
+      </dl>
+      <p>* La foto 5 muestra el panel sostenido en ángulo. Su asociación con la prueba perpendicular es provisional.</p>
+      <h3>Lecturas sin orientación identificable</h3>
+      <p>El multímetro muestra 0.096 V en las fotos 7 y 8, 0.097 V en la 9, 0.100 V en la 11 y 0.119 V en la 12. En estas tomas no se ve la posición del panel.</p>
+      <p>La simulación reproduce lecturas de referencia.</p>
+      <details><summary>Ver todas las fotos de campo</summary><div id="gallery" class="gallery"></div></details>
+    </section>
+    <section class="results" aria-labelledby="current-title">
+      <h2 id="current-title">Corriente continua medida</h2>
+      <p>Para calcular potencia, hace falta un par de lecturas de voltaje y corriente bajo la misma carga y condición de ensayo.</p>
+      <div class="current-photos">
+        <figure>
+          <a href="assets/solar/corriente-1.png"><img src="assets/solar/corriente-1.png" loading="lazy" alt="Multímetro con lectura de 3.45 mA en corriente continua"></a>
+          <figcaption><strong>3.45 mA CC</strong> · Se aprecia la cara activa. Orientación por confirmar.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/solar/corriente-2.png"><img src="assets/solar/corriente-2.png" loading="lazy" alt="Multímetro con lectura de −2.22 mA CC"></a>
+          <figcaption><strong>−2.22 mA CC</strong> · Panel boca abajo. Lectura reportada como errónea y conservada como evidencia.</figcaption>
+        </figure>
+        <figure>
+          <a href="assets/solar/corriente-3.png"><img src="assets/solar/corriente-3.png" loading="lazy" alt="Multímetro con lectura de 3.52 mA en corriente continua"></a>
+          <figcaption><strong>3.52 mA CC</strong> · Se ve la parte posterior del panel levantado. Orientación respecto al Sol por confirmar.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">FotoV · Práctica de campo para Photon Labs</footer>
+</body>
+</html>
