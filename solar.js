@@ -149,9 +149,13 @@ function updatePhotoelectric() {
   const flux = Number(photoFlux.value);
   const energy = 1239.84 / nm;
   const emits = flux > 0 && energy > 2.30;
+  const region = nm < 400 ? 'Ultravioleta' : nm < 700 ? 'Visible' : 'Infrarrojo cercano';
+  const hue = 270 * (700 - Math.min(700, Math.max(400, nm))) / 300;
+  photoScene.style.setProperty('--photon-color', `hsl(${hue} 100% 62%)`);
+  photoScene.classList.toggle('invisible-light', region !== 'Visible');
   photoScene.classList.toggle('lit', flux > 0);
   photoScene.classList.toggle('emits', emits);
-  document.querySelector('#photo-nm').textContent = nm + ' nm';
+  document.querySelector('#photo-nm').textContent = nm + ' nm · ' + region;
   document.querySelector('#photo-flux-value').textContent = flux + ' %';
   document.querySelector('#photo-energy').textContent = energy.toFixed(2) + ' eV';
   document.querySelector('#photo-current').textContent = (emits ? flux / 10 : 0).toFixed(1) + ' µA';
