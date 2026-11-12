@@ -84,3 +84,6 @@ footer { padding-block: 30px; color: var(--muted); }
 .simulated-meter > div { padding: 12px; background: #061b30; border: 1px solid var(--line); border-radius: 10px; }
 .simulated-meter span { display: block; color: var(--muted); font-size: .85rem; }
 .simulated-meter span + span { color: var(--gold); font: 700 1.35rem/1.5 ui-monospace, monospace; }
+.solar-spectrum { display: block; width: 100%; max-width: 800px; height: auto; margin-bottom: 16px; }
+#spectrum-wavelength { display: block; width: min(100%, 800px); accent-color: var(--gold); margin: 12px 0; }
+#spectrum-reading { font-size: 1rem; }

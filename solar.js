@@ -121,3 +121,21 @@ playSolar.addEventListener('click', () => {
 });
 
 renderIncidence(0);
+
+const wavelength = document.querySelector('#spectrum-wavelength');
+const spectrumMarker = document.querySelector('#spectrum-marker');
+const spectrumReading = document.querySelector('#spectrum-reading');
+
+function spectralIntensity(nm) {
+  return (500 / nm) ** 5 / Math.expm1(2489.4 / nm);
+}
+
+wavelength.addEventListener('input', () => {
+  const nm = Number(wavelength.value);
+  const x = 64 + (nm - 200) * 0.4;
+  const region = nm < 400 ? 'Ultravioleta' : nm < 700 ? 'Visible' : 'Infrarrojo cercano';
+  const relative = Math.round(100 * spectralIntensity(nm) / spectralIntensity(501.5));
+  spectrumMarker.setAttribute('x1', x);
+  spectrumMarker.setAttribute('x2', x);
+  spectrumReading.textContent = `${nm} nm · ${region} · ${relative} % del máximo`;
+});
