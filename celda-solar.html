@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#061b30">
   <title>Simulador de celda solar · FotoV</title>
-  <link rel="stylesheet" href="solar.css">
-  <script src="solar.js?v=c1d6b90" defer></script>
+  <link rel="stylesheet" href="solar.css?v=fotoelectrico-1">
+  <script src="solar.js?v=fotoelectrico-1" defer></script>
 </head>
 <body>
   <header class="wrap top">
@@ -102,6 +102,24 @@
       <label for="spectrum-wavelength">Mueve el deslizador para explorar la longitud de onda</label>
       <input type="range" id="spectrum-wavelength" min="200" max="1800" value="502">
       <output for="spectrum-wavelength" id="spectrum-reading">502 nm · Visible · 100 % del máximo</output>
+    </section>
+    <section class="results photoelectric" aria-labelledby="photoelectric-title">
+      <h2 id="photoelectric-title">Efecto fotoeléctrico · De la luz a la corriente</h2>
+      <p>Ilumina un metal con una función de trabajo de 2.30 eV. Cuando los fotones superan ese umbral, se liberan electrones y un colector ideal los recoge. Esta demostración representa el efecto fotoeléctrico externo.</p>
+      <div class="photoelectric-scene" aria-hidden="true">
+        <span>Fuente de luz</span><span>Metal</span><span>Colector</span>
+        <i class="photon"></i><i class="electron"></i>
+      </div>
+      <label for="photo-wavelength">Longitud de onda <b id="photo-nm">450 nm</b></label>
+      <input id="photo-wavelength" type="range" min="300" max="750" value="450">
+      <label for="photo-flux">Flujo de fotones <b id="photo-flux-value">60 %</b></label>
+      <input id="photo-flux" type="range" min="0" max="100" value="60">
+      <div class="simulated-meter">
+        <div><span>Energía por fotón</span><span id="photo-energy">2.76 eV</span></div>
+        <div><span>Fotocorriente idealizada</span><span id="photo-current">6.0 µA</span></div>
+      </div>
+      <p id="photo-status">El metal emite electrones.</p>
+      <p>La corriente se muestra en una escala ilustrativa de 0 a 10 µA. El panel del otro simulador genera corriente mediante el efecto fotovoltaico dentro del semiconductor.</p>
     </section>
     <section class="results" aria-labelledby="current-title">
       <h2 id="current-title">Corriente continua · evidencia de otro equipo</h2>

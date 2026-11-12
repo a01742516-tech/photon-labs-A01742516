@@ -139,3 +139,27 @@ wavelength.addEventListener('input', () => {
   spectrumMarker.setAttribute('x2', x);
   spectrumReading.textContent = `${nm} nm · ${region} · ${relative} % del máximo`;
 });
+
+const photoWavelength = document.querySelector('#photo-wavelength');
+const photoFlux = document.querySelector('#photo-flux');
+const photoScene = document.querySelector('.photoelectric-scene');
+
+function updatePhotoelectric() {
+  const nm = Number(photoWavelength.value);
+  const flux = Number(photoFlux.value);
+  const energy = 1239.84 / nm;
+  const emits = flux > 0 && energy > 2.30;
+  photoScene.classList.toggle('lit', flux > 0);
+  photoScene.classList.toggle('emits', emits);
+  document.querySelector('#photo-nm').textContent = nm + ' nm';
+  document.querySelector('#photo-flux-value').textContent = flux + ' %';
+  document.querySelector('#photo-energy').textContent = energy.toFixed(2) + ' eV';
+  document.querySelector('#photo-current').textContent = (emits ? flux / 10 : 0).toFixed(1) + ' µA';
+  document.querySelector('#photo-status').textContent = flux === 0
+    ? 'La fuente de luz está apagada.'
+    : emits ? 'El metal emite electrones.' : 'Cada fotón tiene energía insuficiente para liberar un electrón.';
+}
+
+photoWavelength.addEventListener('input', updatePhotoelectric);
+photoFlux.addEventListener('input', updatePhotoelectric);
+updatePhotoelectric();

@@ -87,3 +87,13 @@ footer { padding-block: 30px; color: var(--muted); }
 .solar-spectrum { display: block; width: 100%; max-width: 800px; height: auto; margin-bottom: 16px; }
 #spectrum-wavelength { display: block; width: min(100%, 800px); accent-color: var(--gold); margin: 12px 0; }
 #spectrum-reading { font-size: 1rem; }
+.photoelectric input { display: block; width: min(100%, 800px); accent-color: var(--gold); margin: 10px 0 18px; }
+.photoelectric-scene { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; padding: 18px 0 56px; margin-bottom: 18px; border-radius: 12px; background: #061b30; }
+.photoelectric-scene i { display: none; position: absolute; bottom: 22px; width: 10px; height: 10px; border-radius: 50%; }
+.photoelectric-scene.lit .photon, .photoelectric-scene.emits .electron { display: block; animation: photo-travel 1s linear infinite; }
+.photoelectric-scene .photon { left: 17%; background: var(--gold); }
+.photoelectric-scene .electron { left: 50%; background: #71dbff; }
+@keyframes photo-travel { to { translate: 0; left: calc(var(--photo-destination) - 5px); opacity: .35; } }
+.photon { --photo-destination: 50%; }
+.electron { --photo-destination: 83%; }
+@media (prefers-reduced-motion: reduce) { .photoelectric-scene i { animation: none !important; } }
